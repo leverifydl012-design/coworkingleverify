@@ -1,4 +1,5 @@
 import { Instagram, Linkedin, Facebook, Twitter, ArrowUpRight } from "lucide-react";
+import logo from "@/assets/leverify-logo.png";
 
 export function Footer() {
   return (
@@ -7,7 +8,9 @@ export function Footer() {
         <div className="grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-5">
             <a href="#top" className="flex items-center gap-2">
-              <div className="size-10 rounded-xl bg-gold-gradient flex items-center justify-center font-display font-bold text-gold-foreground">N</div>
+              <div className="size-11 rounded-xl bg-white flex items-center justify-center p-1.5">
+                <img src={logo} alt="Leverify logo" className="size-full object-contain" />
+              </div>
               <span className="font-display text-lg font-bold">Leverify Coworking</span>
             </a>
             <p className="mt-5 text-primary-foreground/70 max-w-sm leading-relaxed">
