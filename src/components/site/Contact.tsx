@@ -29,7 +29,7 @@ export function Contact() {
               <span className="size-11 rounded-xl bg-gold/15 text-gold flex items-center justify-center"><MapPin className="size-5" /></span>
               <div>
                 <div className="font-semibold text-foreground">Visit</div>
-                <div className="text-sm text-muted-foreground">Nexus Coworking, F-7 Markaz, Islamabad</div>
+                <div className="text-sm text-muted-foreground">Leverify Coworking, F-7 Markaz, Islamabad</div>
               </div>
             </li>
             <li className="flex items-start gap-4">
@@ -50,7 +50,7 @@ export function Contact() {
 
           <div className="mt-10 rounded-3xl overflow-hidden border border-border shadow-elegant aspect-[16/10]">
             <iframe
-              title="Nexus Coworking — Islamabad location"
+              title="Leverify Coworking — Islamabad location"
               src="https://www.google.com/maps?q=F-7+Markaz,+Islamabad,+Pakistan&output=embed"
               width="100%"
               height="100%"

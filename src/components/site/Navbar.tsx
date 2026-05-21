@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/leverify-logo.png";
 
 const links = [
   { href: "#workspaces", label: "Workspaces" },
@@ -37,11 +38,11 @@ export function Navbar() {
           )}
         >
           <a href="#top" className="flex items-center gap-2 group">
-            <div className="size-9 rounded-xl bg-gold-gradient shadow-gold flex items-center justify-center font-display font-bold text-gold-foreground">
-              N
+            <div className="size-10 rounded-xl bg-white shadow-elegant flex items-center justify-center p-1.5">
+              <img src={logo} alt="Leverify logo" className="size-full object-contain" />
             </div>
             <div className="flex flex-col leading-none">
-              <span className="font-display font-bold text-base text-foreground">Nexus</span>
+              <span className="font-display font-bold text-base text-foreground">Leverify</span>
               <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Coworking · Islamabad</span>
             </div>
           </a>

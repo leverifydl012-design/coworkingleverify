@@ -20,12 +20,12 @@ export function About() {
       <div className="container-px mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-5">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">About Nexus</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">About Leverify</span>
             <h2 className="mt-4 text-4xl md:text-5xl font-bold text-foreground leading-tight">
               A workspace built for the way modern teams actually work.
             </h2>
             <p className="mt-6 text-muted-foreground leading-relaxed">
-              Nexus is Islamabad's premium coworking destination — designed for founders shipping product,
+              Leverify is Islamabad's premium coworking destination — designed for founders shipping product,
               agencies serving global clients, and ecommerce teams scaling across borders. Everything here,
               from the lighting to the lattes, is tuned for productivity, focus, and serendipitous connection.
             </p>
