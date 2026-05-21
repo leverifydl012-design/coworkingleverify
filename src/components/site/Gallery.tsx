@@ -20,7 +20,7 @@ export function Gallery() {
           <div className="max-w-2xl">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">Gallery</span>
             <h2 className="mt-4 text-4xl md:text-5xl font-bold text-foreground leading-tight">
-              Step inside Nexus Islamabad.
+              Step inside Leverify Islamabad.
             </h2>
           </div>
           <p className="text-muted-foreground max-w-md">

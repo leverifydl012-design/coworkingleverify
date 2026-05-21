@@ -73,7 +73,7 @@ export function Hero() {
           <div className="relative rounded-3xl overflow-hidden shadow-elegant">
             <img
               src={hero}
-              alt="Premium coworking workspace at Nexus Islamabad with floor-to-ceiling windows"
+              alt="Premium coworking workspace at Leverify Islamabad with floor-to-ceiling windows"
               width={1920}
               height={1080}
               className="w-full h-[520px] object-cover"

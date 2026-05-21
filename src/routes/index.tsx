@@ -16,13 +16,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Nexus Coworking Islamabad — Premium Offices & Coworking Spaces" },
+      { title: "Leverify Coworking Islamabad — Premium Offices & Coworking Spaces" },
       {
         name: "description",
         content:
           "Premium coworking in F-7 Islamabad. Dedicated desks, private offices, meeting rooms & virtual offices for freelancers, agencies and startups. Book a tour today.",
       },
-      { property: "og:title", content: "Nexus Coworking — Premium Workspace in Islamabad" },
+      { property: "og:title", content: "Leverify Coworking — Premium Workspace in Islamabad" },
       { property: "og:description", content: "Dedicated desks, private offices, meeting rooms & virtual offices in F-7 Islamabad." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
@@ -42,7 +42,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
-          name: "Nexus Coworking",
+          name: "Leverify Coworking",
           description: "Premium coworking space in Islamabad offering dedicated desks, private offices, meeting rooms and virtual offices.",
           address: {
             "@type": "PostalAddress",

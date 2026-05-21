@@ -41,7 +41,7 @@ export function Navbar() {
               N
             </div>
             <div className="flex flex-col leading-none">
-              <span className="font-display font-bold text-base text-foreground">Nexus</span>
+              <span className="font-display font-bold text-base text-foreground">Leverify</span>
               <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Coworking · Islamabad</span>
             </div>
           </a>

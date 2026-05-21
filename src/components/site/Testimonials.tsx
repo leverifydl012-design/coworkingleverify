@@ -2,7 +2,7 @@ import { Quote, Star } from "lucide-react";
 
 const items = [
   {
-    quote: "We scaled our agency from 4 to 18 people inside Nexus without ever moving offices. The team handles everything.",
+    quote: "We scaled our agency from 4 to 18 people inside Leverify without ever moving offices. The team handles everything.",
     name: "Ayesha Khan",
     role: "Founder, Pixelcraft Studio",
   },
@@ -12,7 +12,7 @@ const items = [
     role: "Senior Engineer, Remote",
   },
   {
-    quote: "Our ecommerce team runs photo shoots, calls with US clients, and pack-out days from one address. Nexus is our HQ.",
+    quote: "Our ecommerce team runs photo shoots, calls with US clients, and pack-out days from one address. Leverify is our HQ.",
     name: "Sara Mahmood",
     role: "COO, Brandloom",
   },

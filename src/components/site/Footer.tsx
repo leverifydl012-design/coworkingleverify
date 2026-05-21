@@ -8,7 +8,7 @@ export function Footer() {
           <div className="lg:col-span-5">
             <a href="#top" className="flex items-center gap-2">
               <div className="size-10 rounded-xl bg-gold-gradient flex items-center justify-center font-display font-bold text-gold-foreground">N</div>
-              <span className="font-display text-lg font-bold">Nexus Coworking</span>
+              <span className="font-display text-lg font-bold">Leverify Coworking</span>
             </a>
             <p className="mt-5 text-primary-foreground/70 max-w-sm leading-relaxed">
               Premium coworking in F-7 Markaz, Islamabad. Designed for founders, agencies, and remote teams
@@ -45,7 +45,7 @@ export function Footer() {
 
         <div className="mt-16 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-primary-foreground/60">
-            © {new Date().getFullYear()} Nexus Coworking. All rights reserved.
+            © {new Date().getFullYear()} Leverify Coworking. All rights reserved.
           </p>
           <div className="flex items-center gap-3">
             {[Instagram, Linkedin, Facebook, Twitter].map((Icon, i) => (
