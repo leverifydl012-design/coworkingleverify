@@ -5,6 +5,7 @@ import logo from "@/assets/leverify-logo.png";
 
 const links = [
   { href: "#workspaces", label: "Workspaces" },
+  { href: "#availability", label: "Availability" },
   { href: "#pricing", label: "Pricing" },
   { href: "#amenities", label: "Amenities" },
   { href: "#gallery", label: "Gallery" },
