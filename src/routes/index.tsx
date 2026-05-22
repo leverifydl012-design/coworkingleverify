@@ -3,6 +3,7 @@ import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
 import { About } from "@/components/site/About";
 import { Workspaces } from "@/components/site/Workspaces";
+import { Availability } from "@/components/site/Availability";
 import { Pricing } from "@/components/site/Pricing";
 import { Amenities } from "@/components/site/Amenities";
 import { Gallery } from "@/components/site/Gallery";
