@@ -67,6 +67,7 @@ function Index() {
         <Hero />
         <About />
         <Workspaces />
+        <Availability />
         <Pricing />
         <Amenities />
         <Gallery />
