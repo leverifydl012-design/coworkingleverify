@@ -73,6 +73,14 @@ export function Navbar() {
             >
               Get Started
             </a>
+            <a
+              href="/admin"
+              aria-label="Admin login"
+              title="Admin login"
+              className="inline-flex items-center justify-center size-10 rounded-full border border-border bg-card text-foreground/80 hover:text-foreground hover:bg-accent transition"
+            >
+              <ShieldCheck className="size-4" />
+            </a>
           </div>
 
           <button
