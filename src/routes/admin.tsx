@@ -103,7 +103,8 @@ function saveStore(s: Store) {
 
 // ----- Auth (lightweight gate) -----
 
-const ADMIN_PASSWORD = "leverify2026";
+const ADMIN_EMAIL = "Asidsarfraz@gmail.com";
+const ADMIN_PASSWORD = "Asad@786";
 const AUTH_KEY = "leverify-circle-admin-auth";
 
 function AdminPanel() {
