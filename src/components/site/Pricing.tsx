@@ -2,23 +2,44 @@ import { Check, Sparkles } from "lucide-react";
 
 const plans = [
   {
-    name: "Flex",
-    price: "9,500",
-    tagline: "For freelancers & remote workers",
-    features: ["Hot desk access Mon–Sat", "Unlimited coffee & tea", "High-speed fiber Wi-Fi", "Community events", "4 meeting room hours/mo"],
+    name: "Day Pass",
+    price: "3,000",
+    period: "/day",
+    tagline: "Try the space for a focused day of work",
+    features: [
+      "Full-day workspace access",
+      "High-speed fiber Wi-Fi",
+      "Unlimited coffee & tea",
+      "Access to community lounge",
+      "Meeting room (subject to availability)",
+    ],
   },
   {
-    name: "Dedicated",
-    price: "18,000",
-    tagline: "For full-time professionals",
+    name: "Weekly Pass",
+    price: "12,000",
+    period: "/week",
+    tagline: "Perfect for short sprints & visiting teams",
     featured: true,
-    features: ["Reserved 24/7 desk", "Locker + monitor setup", "8 meeting hours/mo", "Premium phone booths", "Print & scan credits", "Guest day passes"],
+    features: [
+      "7 consecutive days of access",
+      "Reserved seating during week",
+      "Invite to weekly community session",
+      "Locker for the week",
+      "2 meeting room hours included",
+    ],
   },
   {
-    name: "Team",
-    price: "65,000",
-    tagline: "Private offices from 2 seats",
-    features: ["Lockable private office", "Custom branding inside", "Dedicated meeting room", "IT & concierge support", "Priority event access"],
+    name: "Monthly Membership",
+    price: "35,000",
+    period: "/mo",
+    tagline: "Full membership in the Leverify Circle",
+    features: [
+      "Unlimited workspace access",
+      "Priority booking for meeting rooms",
+      "Monthly engagement & dev calendar",
+      "Networking & professional sessions",
+      "Guest day passes & referral perks",
+    ],
   },
 ];
 
@@ -29,10 +50,11 @@ export function Pricing() {
         <div className="text-center max-w-2xl mx-auto">
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">Pricing</span>
           <h2 className="mt-4 text-4xl md:text-5xl font-bold text-foreground leading-tight">
-            Simple plans. No surprises.
+            Membership plans
           </h2>
           <p className="mt-4 text-muted-foreground">
-            All plans include premium amenities, secure 24/7 access on eligible tiers, and zero setup fees.
+            Proposed pricing for Phase 1. Designed to support operational sustainability while keeping a premium,
+            community-oriented positioning. Final pricing may be adjusted at launch.
           </p>
         </div>
 
@@ -61,7 +83,7 @@ export function Pricing() {
               <div className="mt-6 flex items-baseline gap-1">
                 <span className={`text-xs ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>PKR</span>
                 <span className="font-display text-5xl font-bold">{p.price}</span>
-                <span className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>/mo</span>
+                <span className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{p.period}</span>
               </div>
 
               <ul className="mt-8 space-y-3 flex-1">
@@ -90,7 +112,7 @@ export function Pricing() {
         </div>
 
         <p className="mt-8 text-center text-sm text-muted-foreground">
-          Need something custom? <a href="#contact" className="text-foreground font-semibold underline underline-offset-4">Talk to our team →</a>
+          Need a team or custom arrangement? <a href="#contact" className="text-foreground font-semibold underline underline-offset-4">Talk to our team →</a>
         </p>
       </div>
     </section>

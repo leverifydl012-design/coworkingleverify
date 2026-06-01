@@ -1,17 +1,17 @@
 import { Users, Zap, Coffee, ShieldCheck } from "lucide-react";
 
 const stats = [
-  { value: "12K+", label: "sq ft of workspace" },
-  { value: "500+", label: "members & growing" },
-  { value: "24/7", label: "secure access" },
-  { value: "30+", label: "events monthly" },
+  { value: "20–25", label: "members in Phase 1" },
+  { value: "Monthly", label: "engagement calendar" },
+  { value: "1:1", label: "networking & mentorship" },
+  { value: "F-7", label: "Markaz, Islamabad" },
 ];
 
 const pillars = [
-  { icon: Users, title: "Real community", text: "Curated networking nights, founder breakfasts, and skill swaps." },
-  { icon: Zap, title: "Deep focus", text: "Acoustic-treated zones, ergonomic seating, and lightning fiber." },
-  { icon: Coffee, title: "Hospitality first", text: "Barista coffee, fresh meals, and concierge that knows your name." },
-  { icon: ShieldCheck, title: "Trusted address", text: "Biometric entry, 24/7 security, and enterprise-grade IT." },
+  { icon: Users, title: "Work", text: "Professional workspace, flexible seating and meeting facilities for focused output." },
+  { icon: Zap, title: "Connect", text: "Curated networking with founders, freelancers and remote professionals." },
+  { icon: Coffee, title: "Learn", text: "Monthly professional development sessions, workshops and skill swaps." },
+  { icon: ShieldCheck, title: "Grow", text: "A growth-oriented community aligned with Leverify's culture and values." },
 ];
 
 export function About() {
@@ -20,14 +20,14 @@ export function About() {
       <div className="container-px mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-5">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">About Leverify</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">About Leverify Circle</span>
             <h2 className="mt-4 text-4xl md:text-5xl font-bold text-foreground leading-tight">
-              A workspace built for the way modern teams actually work.
+              More than a desk. A community to work, connect, learn and grow.
             </h2>
             <p className="mt-6 text-muted-foreground leading-relaxed">
-              Leverify is Islamabad's premium coworking destination — designed for founders shipping product,
-              agencies serving global clients, and ecommerce teams scaling across borders. Everything here,
-              from the lighting to the lattes, is tuned for productivity, focus, and serendipitous connection.
+              Leverify Circle is a community-oriented work and development space built inside Leverify's existing
+              office in Islamabad. Unlike traditional coworking, we combine focused work with professional networking,
+              engagement activities and development sessions — in an environment aligned with Leverify's culture.
             </p>
 
             <dl className="mt-10 grid grid-cols-2 gap-6">

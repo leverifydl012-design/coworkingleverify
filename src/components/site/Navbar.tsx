@@ -6,9 +6,9 @@ import logo from "@/assets/leverify-logo.png";
 const links = [
   { href: "#workspaces", label: "Workspaces" },
   { href: "#availability", label: "Availability" },
+  { href: "#calendar", label: "Calendar" },
   { href: "#pricing", label: "Pricing" },
   { href: "#amenities", label: "Amenities" },
-  { href: "#gallery", label: "Gallery" },
   { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
 ];
@@ -43,8 +43,8 @@ export function Navbar() {
               <img src={logo} alt="Leverify logo" className="size-full object-contain" />
             </div>
             <div className="flex flex-col leading-none">
-              <span className="font-display font-bold text-base text-foreground">Leverify</span>
-              <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Coworking · Islamabad</span>
+              <span className="font-display font-bold text-base text-foreground">Leverify Circle</span>
+              <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Work · Connect · Learn · Grow</span>
             </div>
           </a>
 
