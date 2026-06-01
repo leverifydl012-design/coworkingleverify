@@ -14,20 +14,20 @@ export function Hero() {
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-xs font-medium text-foreground/80">
             <MapPin className="size-3.5 text-gold" />
-            Now open in F-7 Markaz, Islamabad
+            Leverify Circle · F-7 Markaz, Islamabad
           </div>
 
           <h1 className="mt-6 text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-foreground">
-            Work where
+            Work.
             <br />
-            <span className="gradient-text">ambition</span> meets
+            <span className="gradient-text">Connect.</span> Learn.
             <br />
-            community.
+            Grow.
           </h1>
 
           <p className="mt-6 text-lg text-muted-foreground max-w-lg leading-relaxed">
-            Premium coworking spaces designed for freelancers, agencies, ecommerce teams, and startups
-            ready to scale. Plug in, pour a coffee, and ship your best work.
+            Leverify Circle is a community-oriented work and development space for remote professionals,
+            freelancers, startups and teams — built inside Leverify's Islamabad office.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
