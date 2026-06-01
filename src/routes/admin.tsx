@@ -103,7 +103,8 @@ function saveStore(s: Store) {
 
 // ----- Auth (lightweight gate) -----
 
-const ADMIN_PASSWORD = "leverify2026";
+const ADMIN_EMAIL = "Asidsarfraz@gmail.com";
+const ADMIN_PASSWORD = "Asad@786";
 const AUTH_KEY = "leverify-circle-admin-auth";
 
 function AdminPanel() {
@@ -331,16 +332,17 @@ function CrudTable({
 // ----- Login -----
 
 function Login({ onSuccess }: { onSuccess: () => void }) {
+  const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [err, setErr] = useState("");
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (pwd === ADMIN_PASSWORD) {
+    if (email.trim().toLowerCase() === ADMIN_EMAIL.toLowerCase() && pwd === ADMIN_PASSWORD) {
       sessionStorage.setItem(AUTH_KEY, "ok");
       onSuccess();
     } else {
-      setErr("Incorrect password.");
+      setErr("Incorrect email or password.");
     }
   }
 
@@ -354,6 +356,18 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
         <p className="mt-1 text-sm text-muted-foreground">Internal access for Leverify Circle operations.</p>
 
         <label className="block mt-6">
+          <span className="block text-xs font-semibold text-foreground/80 mb-1.5">Email</span>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => { setEmail(e.target.value); setErr(""); }}
+            className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-gold"
+            placeholder="you@example.com"
+            autoFocus
+          />
+        </label>
+
+        <label className="block mt-4">
           <span className="block text-xs font-semibold text-foreground/80 mb-1.5">Password</span>
           <input
             type="password"
@@ -361,7 +375,6 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
             onChange={(e) => { setPwd(e.target.value); setErr(""); }}
             className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-gold"
             placeholder="••••••••"
-            autoFocus
           />
         </label>
         {err && <p className="mt-2 text-xs text-destructive">{err}</p>}
@@ -369,9 +382,7 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
         <button type="submit" className="mt-6 w-full inline-flex justify-center rounded-full bg-foreground text-background px-5 py-3 text-sm font-semibold hover:opacity-90 transition">
           Sign in
         </button>
-        <p className="mt-4 text-[11px] text-muted-foreground text-center">
-          Default password: <code className="font-mono">leverify2026</code>
-        </p>
+
       </form>
     </div>
   );
