@@ -158,6 +158,7 @@ function AdminPanel() {
               <LogOut className="size-4" /> Sign out
             </button>
           </div>
+        </div>
       </header>
 
       <div className="container-px mx-auto max-w-7xl py-8">
