@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { EditableImage } from "./EditableImage";
+import lounge from "@/assets/coworking-lounge.jpg";
 
 export function Contact() {
   const [sent, setSent] = useState(false);
@@ -13,8 +15,18 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 lg:py-32 bg-muted/40">
-      <div className="container-px mx-auto max-w-7xl grid lg:grid-cols-2 gap-12">
+    <section id="contact" className="relative py-24 lg:py-32 bg-muted/40 overflow-hidden">
+      <div className="absolute inset-0 -z-0">
+        <EditableImage
+          id="contact-bg"
+          src={lounge}
+          alt=""
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-cover opacity-10"
+        />
+        <div className="absolute inset-0 bg-muted/40" />
+      </div>
+      <div className="container-px mx-auto max-w-7xl grid lg:grid-cols-2 gap-12 relative">
         <div>
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">Contact</span>
           <h2 className="mt-4 text-4xl md:text-5xl font-bold text-foreground leading-tight">
