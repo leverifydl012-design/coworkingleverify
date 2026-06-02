@@ -1,5 +1,6 @@
 import { ArrowRight, PlayCircle, MapPin, Star } from "lucide-react";
 import hero from "@/assets/hero-workspace.jpg";
+import { EditableImage } from "./EditableImage";
 
 export function Hero() {
   return (
@@ -71,7 +72,8 @@ export function Hero() {
         {/* Visual */}
         <div className="relative animate-scale-in">
           <div className="relative rounded-3xl overflow-hidden shadow-elegant">
-            <img
+            <EditableImage
+              id="hero-main"
               src={hero}
               alt="Premium coworking workspace at Leverify Islamabad with floor-to-ceiling windows"
               width={1920}

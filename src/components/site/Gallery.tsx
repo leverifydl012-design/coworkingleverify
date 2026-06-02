@@ -1,4 +1,5 @@
 import hero from "@/assets/hero-workspace.jpg";
+import { EditableImage } from "./EditableImage";
 import desk from "@/assets/dedicated-desks.jpg";
 import office from "@/assets/private-office.jpg";
 import meeting from "@/assets/meeting-room.jpg";
@@ -34,7 +35,8 @@ export function Gallery() {
               key={i}
               className={`relative group rounded-2xl overflow-hidden ${img.span ?? ""}`}
             >
-              <img
+              <EditableImage
+                id={`gallery-${i}`}
                 src={img.src}
                 alt={img.label}
                 loading="lazy"
