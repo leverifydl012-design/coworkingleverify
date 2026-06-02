@@ -34,7 +34,8 @@ export function Gallery() {
               key={i}
               className={`relative group rounded-2xl overflow-hidden ${img.span ?? ""}`}
             >
-              <img
+              <EditableImage
+                id={`gallery-${i}`}
                 src={img.src}
                 alt={img.label}
                 loading="lazy"

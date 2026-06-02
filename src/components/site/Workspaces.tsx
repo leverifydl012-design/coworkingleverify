@@ -85,7 +85,8 @@ export function Workspaces() {
 
         <div key={current.id} className="mt-10 grid lg:grid-cols-2 gap-8 items-stretch animate-fade-up">
           <div className="relative rounded-3xl overflow-hidden shadow-elegant min-h-[400px]">
-            <img
+            <EditableImage
+              id={`workspace-${current.id}`}
               src={current.image}
               alt={current.name}
               loading="lazy"

@@ -71,7 +71,8 @@ export function Hero() {
         {/* Visual */}
         <div className="relative animate-scale-in">
           <div className="relative rounded-3xl overflow-hidden shadow-elegant">
-            <img
+            <EditableImage
+              id="hero-main"
               src={hero}
               alt="Premium coworking workspace at Leverify Islamabad with floor-to-ceiling windows"
               width={1920}
