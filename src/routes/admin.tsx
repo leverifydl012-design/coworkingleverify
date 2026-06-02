@@ -10,7 +10,9 @@ import {
   Trash2,
   LogOut,
   ShieldCheck,
+  ExternalLink,
 } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin")({
   component: AdminPanel,
@@ -141,12 +143,21 @@ function AdminPanel() {
               <div className="text-xs text-muted-foreground">Internal operations dashboard</div>
             </div>
           </div>
-          <button
-            onClick={() => { sessionStorage.removeItem(AUTH_KEY); window.dispatchEvent(new Event("leverify-admin-auth")); setAuthed(false); }}
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-          >
-            <LogOut className="size-4" /> Sign out
-          </button>
+          <div className="flex items-center gap-2">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 rounded-full bg-foreground text-background text-sm font-semibold px-4 py-2 shadow-elegant hover:opacity-90 transition"
+              title="Open live website — your edits save automatically"
+            >
+              <ExternalLink className="size-4" /> View live site
+            </Link>
+            <button
+              onClick={() => { sessionStorage.removeItem(AUTH_KEY); window.dispatchEvent(new Event("leverify-admin-auth")); setAuthed(false); }}
+              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground px-3 py-2"
+            >
+              <LogOut className="size-4" /> Sign out
+            </button>
+          </div>
         </div>
       </header>
 
