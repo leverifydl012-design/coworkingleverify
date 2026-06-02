@@ -1,4 +1,6 @@
 import { Wifi, Zap, Users, Snowflake, Coffee, ShieldCheck, Car, Printer, Clock } from "lucide-react";
+import { EditableImage } from "./EditableImage";
+import lounge from "@/assets/coworking-lounge.jpg";
 
 const items = [
   { icon: Wifi, title: "High-speed Internet", text: "Symmetric fiber with redundant failover." },
@@ -23,7 +25,18 @@ export function Amenities() {
           </h2>
         </div>
 
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-5">
+        <div className="relative mt-10 rounded-3xl overflow-hidden shadow-elegant h-56 md:h-72">
+          <EditableImage
+            id="amenities-cover"
+            src={lounge}
+            alt="Leverify amenities and lounge space"
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent" />
+        </div>
+
+        <div className="mt-10 grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-5">
           {items.map((it) => (
             <div
               key={it.title}
