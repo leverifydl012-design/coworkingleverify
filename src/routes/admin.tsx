@@ -10,7 +10,9 @@ import {
   Trash2,
   LogOut,
   ShieldCheck,
+  ExternalLink,
 } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin")({
   component: AdminPanel,
