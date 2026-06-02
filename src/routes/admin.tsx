@@ -142,7 +142,7 @@ function AdminPanel() {
             </div>
           </div>
           <button
-            onClick={() => { sessionStorage.removeItem(AUTH_KEY); setAuthed(false); }}
+            onClick={() => { sessionStorage.removeItem(AUTH_KEY); window.dispatchEvent(new Event("leverify-admin-auth")); setAuthed(false); }}
             className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
           >
             <LogOut className="size-4" /> Sign out
@@ -340,6 +340,7 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
     e.preventDefault();
     if (email.trim().toLowerCase() === ADMIN_EMAIL.toLowerCase() && pwd === ADMIN_PASSWORD) {
       sessionStorage.setItem(AUTH_KEY, "ok");
+      window.dispatchEvent(new Event("leverify-admin-auth"));
       onSuccess();
     } else {
       setErr("Incorrect email or password.");
