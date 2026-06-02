@@ -1,4 +1,5 @@
 import hero from "@/assets/hero-workspace.jpg";
+import { EditableImage } from "./EditableImage";
 import desk from "@/assets/dedicated-desks.jpg";
 import office from "@/assets/private-office.jpg";
 import meeting from "@/assets/meeting-room.jpg";

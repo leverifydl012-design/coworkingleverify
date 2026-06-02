@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowUpRight, Check } from "lucide-react";
+import { EditableImage } from "./EditableImage";
 import desk from "@/assets/dedicated-desks.jpg";
 import office from "@/assets/private-office.jpg";
 import meeting from "@/assets/meeting-room.jpg";
