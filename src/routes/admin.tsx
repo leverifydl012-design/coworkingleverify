@@ -119,14 +119,14 @@ function AdminPanel() {
 
   useEffect(() => { saveStore(store); }, [store]);
 
-  if (!authed) return <Login onSuccess={() => setAuthed(true)} />;
-
   const stats = useMemo(() => [
     { label: "Active members", value: store.members.filter(m => m.status === "Active").length, icon: Users },
     { label: "Bookings this week", value: store.bookings.length, icon: ClipboardList },
     { label: "Upcoming events", value: store.events.length, icon: CalendarDays },
     { label: "Open inquiries", value: store.inquiries.length, icon: Inbox },
   ], [store]);
+
+  if (!authed) return <Login onSuccess={() => setAuthed(true)} />;
 
   return (
     <div className="min-h-screen bg-muted/30">
