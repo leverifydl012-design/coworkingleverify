@@ -153,7 +153,7 @@ function AdminPanel() {
               <ExternalLink className="size-4" /> View live site
             </Link>
             <button
-              onClick={() => { sessionStorage.removeItem(AUTH_KEY); window.dispatchEvent(new Event("leverify-admin-auth")); setAuthed(false); }}
+              onClick={() => { sessionStorage.removeItem(AUTH_KEY); sessionStorage.removeItem(PW_KEY); window.dispatchEvent(new Event("leverify-admin-auth")); setAuthed(false); }}
               className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground px-3 py-2"
             >
               <LogOut className="size-4" /> Sign out
