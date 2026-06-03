@@ -48,3 +48,13 @@ export const deleteImageOverrideFn = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+const verifySchema = z.object({ password: z.string().min(1).max(512) });
+
+export const verifyAdminFn = createServerFn({ method: "POST" })
+  .inputValidator((input) => verifySchema.parse(input))
+  .handler(async ({ data }) => {
+    assertAdmin(data.password);
+    return { ok: true };
+  });
+
