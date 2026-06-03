@@ -109,7 +109,7 @@ type Props = {
 
 export function EditableImage({ id, src, alt, className, width, height, loading }: Props) {
   const isAdmin = useIsAdmin();
-  const [override, setOverride] = useState<string | null>(() => readCache()[id] ?? null);
+  const [override, setOverride] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
