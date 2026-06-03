@@ -1,66 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { ImagePlus, RotateCcw, Loader2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { isSupabaseConfigured, supabase } from "@/integrations/supabase/client";
+import { AUTH_KEY, PW_KEY } from "@/lib/admin-auth";
+import { fetchImageOverridesMap } from "@/lib/image-overrides";
 import { saveImageOverrideFn, deleteImageOverrideFn } from "@/lib/image-overrides.functions";
+import { useImageOverrides } from "./ImageOverridesProvider";
 
-const AUTH_KEY = "leverify-circle-admin-auth";
-const PW_KEY = "leverify-circle-admin-pw";
-const CACHE_KEY = "leverify-image-overrides-cache";
-const MAX_WIDTH = 1600;
-const QUALITY = 0.8;
-
-
-type OverrideMap = Record<string, string>;
-
-let cache: OverrideMap | null = null;
-let pending: Promise<OverrideMap> | null = null;
-
-function readCache(): OverrideMap {
-  if (cache) return cache;
-  if (typeof window === "undefined") return {};
-  try { cache = JSON.parse(localStorage.getItem(CACHE_KEY) || "{}"); } catch { cache = {}; }
-  return cache!;
-}
-
-function writeCache(map: OverrideMap) {
-  cache = map;
-  try { localStorage.setItem(CACHE_KEY, JSON.stringify(map)); } catch {}
-  if (typeof window !== "undefined") window.dispatchEvent(new Event("leverify-image-overrides"));
-}
-
-async function fetchAllOverrides(): Promise<OverrideMap> {
-  if (pending) return pending;
-  pending = (async () => {
-    const { data, error } = await supabase.from("image_overrides").select("image_id,url");
-    if (error) { console.error("Load overrides failed:", error); return readCache(); }
-    const map: OverrideMap = {};
-    for (const row of data ?? []) map[row.image_id] = row.url;
-    writeCache(map);
-    return map;
-  })();
-  try { return await pending; } finally { pending = null; }
-}
-
-async function saveOverride(id: string, url: string | null) {
-  const password = typeof window !== "undefined" ? sessionStorage.getItem(PW_KEY) || "" : "";
-  if (!password) throw new Error("Admin session expired. Sign in again.");
-  const map = { ...readCache() };
-  if (url === null) {
-    delete map[id];
-    writeCache(map);
-    await deleteImageOverrideFn({ data: { password, imageId: id } });
-  } else {
-    map[id] = url;
-    writeCache(map);
-    await saveImageOverrideFn({ data: { password, imageId: id, url } });
-  }
-}
-
+const MAX_WIDTH = 1200;
+const MAX_DATA_URL_LENGTH = 1_500_000;
 
 export function useIsAdmin() {
   const [admin, setAdmin] = useState(false);
   useEffect(() => {
-    const check = () => setAdmin(typeof window !== "undefined" && sessionStorage.getItem(AUTH_KEY) === "ok");
+    const check = () =>
+      setAdmin(typeof window !== "undefined" && sessionStorage.getItem(AUTH_KEY) === "ok");
     check();
     window.addEventListener("storage", check);
     window.addEventListener("focus", check);
@@ -75,7 +28,7 @@ export function useIsAdmin() {
 }
 
 async function processImage(file: File): Promise<string> {
-  const dataUrl = await new Promise<string>((resolve, reject) => {
+  const fileDataUrl = await new Promise<string>((resolve, reject) => {
     const r = new FileReader();
     r.onload = () => resolve(String(r.result));
     r.onerror = reject;
@@ -85,16 +38,42 @@ async function processImage(file: File): Promise<string> {
     const i = new Image();
     i.onload = () => resolve(i);
     i.onerror = reject;
-    i.src = dataUrl;
+    i.src = fileDataUrl;
   });
   const scale = Math.min(1, MAX_WIDTH / img.width);
   const w = Math.round(img.width * scale);
   const h = Math.round(img.height * scale);
   const canvas = document.createElement("canvas");
-  canvas.width = w; canvas.height = h;
+  canvas.width = w;
+  canvas.height = h;
   const ctx = canvas.getContext("2d")!;
   ctx.drawImage(img, 0, 0, w, h);
-  return canvas.toDataURL("image/jpeg", QUALITY);
+
+  let quality = 0.82;
+  let dataUrl = canvas.toDataURL("image/jpeg", quality);
+  while (dataUrl.length > MAX_DATA_URL_LENGTH && quality > 0.45) {
+    quality -= 0.08;
+    dataUrl = canvas.toDataURL("image/jpeg", quality);
+  }
+  if (dataUrl.length > 8_000_000) {
+    throw new Error("Image is still too large. Try a smaller photo or crop it first.");
+  }
+  return dataUrl;
+}
+
+function imageSaveErrorMessage(err: unknown): string {
+  const msg = err instanceof Error ? err.message : String(err);
+  if (msg.includes("Admin session expired") || msg.includes("Unauthorized")) {
+    return "Session expired. Sign out and sign in again at /admin, then retry.";
+  }
+  if (msg.includes("SUPABASE_SERVICE_ROLE_KEY") || msg.includes("Missing Supabase")) {
+    return "Server is missing Supabase keys. Add SUPABASE_SERVICE_ROLE_KEY to your .env file.";
+  }
+  if (msg.includes("too large")) return msg;
+  if (msg.includes("Failed to fetch") || msg.includes("NetworkError")) {
+    return "Could not reach the server. Check your connection and try again.";
+  }
+  return `Failed to save image: ${msg}`;
 }
 
 type Props = {
@@ -107,37 +86,75 @@ type Props = {
   loading?: "lazy" | "eager";
 };
 
+/**
+ * Resolves override URL from SSR context or a one-time DB fetch (no localStorage).
+ * `undefined` = still resolving — do not show the default asset yet.
+ */
+function useResolvedOverrideUrl(imageId: string): string | null | undefined {
+  const ctx = useImageOverrides();
+  const [fetched, setFetched] = useState<string | null | undefined>(undefined);
+
+  useEffect(() => {
+    if (ctx !== null) return;
+    let alive = true;
+    fetchImageOverridesMap().then((map) => {
+      if (alive) setFetched(map[imageId] ?? null);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [ctx, imageId]);
+
+  if (ctx !== null) {
+    return imageId in ctx.overrides ? ctx.overrides[imageId] : null;
+  }
+  return fetched;
+}
+
 export function EditableImage({ id, src, alt, className, width, height, loading }: Props) {
   const isAdmin = useIsAdmin();
-  const [override, setOverride] = useState<string | null>(null);
+  const ctx = useImageOverrides();
+  const resolvedOverride = useResolvedOverrideUrl(id);
+  const [pendingOverride, setPendingOverride] = useState<string | null | undefined>(undefined);
   const [busy, setBusy] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    let alive = true;
-    fetchAllOverrides().then((map) => { if (alive) setOverride(map[id] ?? null); });
-    const sync = () => setOverride(readCache()[id] ?? null);
-    window.addEventListener("leverify-image-overrides", sync);
-    return () => { alive = false; window.removeEventListener("leverify-image-overrides", sync); };
-  }, [id]);
+  const overrideUrl =
+    pendingOverride !== undefined ? pendingOverride : resolvedOverride;
 
-  // Realtime sync across browsers/devices
+  const isResolved = overrideUrl !== undefined;
+  const displaySrc = isResolved ? (overrideUrl ?? src) : undefined;
+
   useEffect(() => {
+    if (!isSupabaseConfigured()) return;
     const channel = supabase
       .channel(`image-overrides-${id}`)
-      .on("postgres_changes", { event: "*", schema: "public", table: "image_overrides", filter: `image_id=eq.${id}` },
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "image_overrides",
+          filter: `image_id=eq.${id}`,
+        },
         (payload) => {
           if (payload.eventType === "DELETE") {
-            const map = { ...readCache() }; delete map[id]; writeCache(map);
-            setOverride(null);
+            setPendingOverride(null);
+            ctx?.setOverride(id, null);
           } else {
             const url = (payload.new as { url?: string })?.url ?? null;
-            if (url) { const map = { ...readCache(), [id]: url }; writeCache(map); setOverride(url); }
+            if (url) {
+              setPendingOverride(url);
+              ctx?.setOverride(id, url);
+            }
           }
-        })
+        },
+      )
       .subscribe();
-    return () => { supabase.removeChannel(channel); };
-  }, [id]);
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [id, ctx]);
 
   async function onPick(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -145,11 +162,16 @@ export function EditableImage({ id, src, alt, className, width, height, loading 
     setBusy(true);
     try {
       const url = await processImage(file);
-      await saveOverride(id, url);
-      setOverride(url);
+      const password = sessionStorage.getItem(PW_KEY) || "";
+      if (!password) {
+        throw new Error("Admin session expired. Sign out, then sign in again at /admin.");
+      }
+      await saveImageOverrideFn({ data: { password, imageId: id, url } });
+      setPendingOverride(url);
+      ctx?.setOverride(id, url);
     } catch (err) {
       console.error(err);
-      alert("Failed to save image. Try a smaller file.");
+      alert(imageSaveErrorMessage(err));
     } finally {
       setBusy(false);
       e.target.value = "";
@@ -159,20 +181,43 @@ export function EditableImage({ id, src, alt, className, width, height, loading 
   async function onReset() {
     setBusy(true);
     try {
-      await saveOverride(id, null);
-      setOverride(null);
+      const password = sessionStorage.getItem(PW_KEY) || "";
+      if (!password) {
+        throw new Error("Admin session expired. Sign out, then sign in again at /admin.");
+      }
+      await deleteImageOverrideFn({ data: { password, imageId: id } });
+      setPendingOverride(null);
+      ctx?.setOverride(id, null);
     } catch (err) {
       console.error(err);
-      alert("Failed to reset image.");
-    } finally { setBusy(false); }
+      alert(imageSaveErrorMessage(err));
+    } finally {
+      setBusy(false);
+    }
   }
 
-  const finalSrc = override ?? src;
+  const hasOverride = isResolved && overrideUrl !== null;
 
   return (
     <>
-      <img src={finalSrc} alt={alt} className={className} width={width} height={height} loading={loading} />
-      {isAdmin && (
+      {isResolved && displaySrc ? (
+        <img
+          src={displaySrc}
+          alt={alt}
+          className={className}
+          width={width}
+          height={height}
+          loading={loading}
+        />
+      ) : (
+        <div
+          className={className}
+          style={{ width, height }}
+          aria-hidden
+          role="presentation"
+        />
+      )}
+      {isAdmin && isResolved && (
         <div className="absolute top-3 right-3 z-20 flex gap-2">
           <button
             type="button"
@@ -184,7 +229,7 @@ export function EditableImage({ id, src, alt, className, width, height, loading 
             {busy ? <Loader2 className="size-3.5 animate-spin" /> : <ImagePlus className="size-3.5" />}
             {busy ? "Saving…" : "Edit"}
           </button>
-          {override && !busy && (
+          {hasOverride && !busy && (
             <button
               type="button"
               onClick={onReset}

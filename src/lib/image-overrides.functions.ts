@@ -1,12 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-
-const ADMIN_PW_KEY = "ADMIN_PASSWORD";
+import { getServerAdminPassword } from "@/lib/admin-auth";
 
 function assertAdmin(password: string) {
-  const expected = process.env[ADMIN_PW_KEY];
-  if (!expected) throw new Error("Server is missing ADMIN_PASSWORD configuration.");
-  if (password !== expected) throw new Error("Unauthorized");
+  if (password !== getServerAdminPassword()) {
+    throw new Error("Unauthorized — sign in again from /admin.");
+  }
 }
 
 const upsertSchema = z.object({

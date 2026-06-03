@@ -3,6 +3,13 @@ import { useEffect, useMemo, useState, useCallback } from "react";
 import { Users, CalendarDays, ClipboardList, Inbox, TrendingUp, LogOut, ShieldCheck, ExternalLink, Loader as Loader2, Plus, Trash2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
+  ADMIN_EMAIL,
+  AUTH_KEY,
+  clearAdminSession,
+  DEFAULT_ADMIN_PASSWORD,
+  persistAdminSession,
+} from "@/lib/admin-auth";
+import {
   supabase,
   type Member,
   type MemberPlan,
@@ -29,11 +36,6 @@ export const Route = createFileRoute("/admin")({
     ],
   }),
 });
-
-const ADMIN_EMAIL = "Asidsarfraz@gmail.com";
-const ADMIN_PASSWORD = "7654321";
-const AUTH_KEY = "leverify-circle-admin-auth";
-
 
 function AdminPanel() {
   const [authed, setAuthed] = useState(false);
@@ -114,8 +116,7 @@ function AdminPanel() {
             </Link>
             <button
               onClick={() => {
-                sessionStorage.removeItem(AUTH_KEY);
-                window.dispatchEvent(new Event("leverify-admin-auth"));
+                clearAdminSession();
                 setAuthed(false);
               }}
               className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground px-3 py-2"
@@ -410,10 +411,9 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
     e.preventDefault();
     if (
       email.trim().toLowerCase() === ADMIN_EMAIL.toLowerCase() &&
-      pwd === ADMIN_PASSWORD
+      pwd === DEFAULT_ADMIN_PASSWORD
     ) {
-      sessionStorage.setItem(AUTH_KEY, "ok");
-      window.dispatchEvent(new Event("leverify-admin-auth"));
+      persistAdminSession(pwd);
       onSuccess();
     } else {
       setErr("Incorrect email or password.");

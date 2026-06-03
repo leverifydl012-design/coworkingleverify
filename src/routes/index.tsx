@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { fetchImageOverridesMap } from "@/lib/image-overrides";
+import { ImageOverridesProvider } from "@/components/site/ImageOverridesProvider";
 import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
 import { About } from "@/components/site/About";
@@ -15,6 +17,9 @@ import { Footer } from "@/components/site/Footer";
 import { WhatsAppButton } from "@/components/site/WhatsAppButton";
 
 export const Route = createFileRoute("/")({
+  loader: async () => ({
+    imageOverrides: await fetchImageOverridesMap(),
+  }),
   component: Index,
   head: () => ({
     meta: [
@@ -61,24 +66,28 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const { imageOverrides } = Route.useLoaderData();
+
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Workspaces />
-        <Availability />
-        <Calendar />
-        <Pricing />
-        <Amenities />
-        <Gallery />
-        <Testimonials />
-        <FAQ />
-        <Contact />
-      </main>
-      <Footer />
-      <WhatsAppButton />
-    </div>
+    <ImageOverridesProvider initial={imageOverrides}>
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Workspaces />
+          <Availability />
+          <Calendar />
+          <Pricing />
+          <Amenities />
+          <Gallery />
+          <Testimonials />
+          <FAQ />
+          <Contact />
+        </main>
+        <Footer />
+        <WhatsAppButton />
+      </div>
+    </ImageOverridesProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+export { supabase, isSupabaseConfigured } from "@/integrations/supabase/client";
 
 export type MemberPlan = "Day Pass" | "Weekly Pass" | "Monthly Membership";
 export type MemberStatus = "Active" | "Trial" | "Paused";
@@ -49,8 +49,3 @@ export type Inquiry = {
   message: string | null;
   created_at: string;
 };
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
