@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
 import { EditableImage } from "./EditableImage";
 import lounge from "@/assets/coworking-lounge.jpg";
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", interest: "Dedicated Desk", message: "" });
+
+  useEffect(() => setMounted(true), []);
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -128,17 +131,21 @@ export function Contact() {
                   />
                 </Field>
                 <Field label="Interested in">
-                  <select
-                    value={form.interest}
-                    onChange={(e) => setForm({ ...form, interest: e.target.value })}
-                    className="input"
-                  >
-                    <option>Dedicated Desk</option>
-                    <option>Private Office</option>
-                    <option>Meeting Room</option>
-                    <option>Shared Coworking</option>
-                    <option>Virtual Office</option>
-                  </select>
+                  {mounted ? (
+                    <select
+                      value={form.interest}
+                      onChange={(e) => setForm({ ...form, interest: e.target.value })}
+                      className="input"
+                    >
+                      <option>Dedicated Desk</option>
+                      <option>Private Office</option>
+                      <option>Meeting Room</option>
+                      <option>Shared Coworking</option>
+                      <option>Virtual Office</option>
+                    </select>
+                  ) : (
+                    <input readOnly value={form.interest} className="input" aria-hidden="true" />
+                  )}
                 </Field>
               </div>
 
