@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { ImagePlus, RotateCcw, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { saveImageOverrideFn, deleteImageOverrideFn } from "@/lib/image-overrides.functions";
 
 const AUTH_KEY = "leverify-circle-admin-auth";
+const PW_KEY = "leverify-circle-admin-pw";
 const CACHE_KEY = "leverify-image-overrides-cache";
 const MAX_WIDTH = 1600;
 const QUALITY = 0.8;
+
 
 type OverrideMap = Record<string, string>;
 
