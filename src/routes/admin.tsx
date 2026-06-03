@@ -17,6 +17,11 @@ import {
 
 export const Route = createFileRoute("/admin")({
   component: AdminPanel,
+  preload: false,
+  loader: async () => {
+    if (typeof window === "undefined") return null;
+    return null;
+  },
   head: () => ({
     meta: [
       { title: "Admin · Leverify Circle" },
@@ -47,16 +52,20 @@ function AdminPanel() {
 
   const fetchAll = useCallback(async () => {
     setLoading(true);
-    const [m, b, e, i] = await Promise.all([
-      supabase.from("members").select("*").order("created_at", { ascending: false }),
-      supabase.from("bookings").select("*").order("created_at", { ascending: false }),
-      supabase.from("events").select("*").order("date", { ascending: true }),
-      supabase.from("inquiries").select("*").order("created_at", { ascending: false }),
-    ]);
-    if (m.data) setMembers(m.data as Member[]);
-    if (b.data) setBookings(b.data as Booking[]);
-    if (e.data) setEvents(e.data as Event[]);
-    if (i.data) setInquiries(i.data as Inquiry[]);
+    try {
+      const [m, b, e, i] = await Promise.all([
+        supabase.from("members").select("*").order("created_at", { ascending: false }),
+        supabase.from("bookings").select("*").order("created_at", { ascending: false }),
+        supabase.from("events").select("*").order("date", { ascending: true }),
+        supabase.from("inquiries").select("*").order("created_at", { ascending: false }),
+      ]);
+      if (m.data) setMembers(m.data as Member[]);
+      if (b.data) setBookings(b.data as Booking[]);
+      if (e.data) setEvents(e.data as Event[]);
+      if (i.data) setInquiries(i.data as Inquiry[]);
+    } catch (err) {
+      console.error("Failed to fetch data:", err);
+    }
     setLoading(false);
   }, []);
 
