@@ -103,11 +103,12 @@ function saveStore(s: Store) {
   localStorage.setItem(KEY, JSON.stringify(s));
 }
 
-// ----- Auth (lightweight gate) -----
+// ----- Auth (server-validated) -----
 
 const ADMIN_EMAIL = "Asidsarfraz@gmail.com";
-const ADMIN_PASSWORD = "7654321";
 const AUTH_KEY = "leverify-circle-admin-auth";
+const PW_KEY = "leverify-circle-admin-pw";
+
 
 function AdminPanel() {
   const [authed, setAuthed] = useState(false);
