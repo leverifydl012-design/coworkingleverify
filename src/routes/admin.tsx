@@ -404,9 +404,10 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
         </label>
         {err && <p className="mt-2 text-xs text-destructive">{err}</p>}
 
-        <button type="submit" className="mt-6 w-full inline-flex justify-center rounded-full bg-foreground text-background px-5 py-3 text-sm font-semibold hover:opacity-90 transition">
-          Sign in
+        <button type="submit" disabled={busy} className="mt-6 w-full inline-flex justify-center rounded-full bg-foreground text-background px-5 py-3 text-sm font-semibold hover:opacity-90 transition disabled:opacity-60">
+          {busy ? "Signing in…" : "Sign in"}
         </button>
+
 
       </form>
     </div>
