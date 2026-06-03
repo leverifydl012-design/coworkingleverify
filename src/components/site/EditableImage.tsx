@@ -1,27 +1,58 @@
 import { useEffect, useRef, useState } from "react";
 import { ImagePlus, RotateCcw, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
-const STORAGE_KEY = "leverify-image-overrides";
 const AUTH_KEY = "leverify-circle-admin-auth";
-const MAX_WIDTH = 1920;
-const QUALITY = 0.82;
+const CACHE_KEY = "leverify-image-overrides-cache";
+const MAX_WIDTH = 1600;
+const QUALITY = 0.8;
 
-function loadOverrides(): Record<string, string> {
+type OverrideMap = Record<string, string>;
+
+let cache: OverrideMap | null = null;
+let pending: Promise<OverrideMap> | null = null;
+
+function readCache(): OverrideMap {
+  if (cache) return cache;
   if (typeof window === "undefined") return {};
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch { return {}; }
+  try { cache = JSON.parse(localStorage.getItem(CACHE_KEY) || "{}"); } catch { cache = {}; }
+  return cache!;
 }
 
-function saveOverride(id: string, value: string | null) {
-  const all = loadOverrides();
-  if (value === null) delete all[id]; else all[id] = value;
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
-  } catch (err) {
-    console.error("Image storage full — try a smaller image", err);
-    alert("Storage limit reached. Try a smaller image.");
-    return;
+function writeCache(map: OverrideMap) {
+  cache = map;
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify(map)); } catch {}
+  if (typeof window !== "undefined") window.dispatchEvent(new Event("leverify-image-overrides"));
+}
+
+async function fetchAllOverrides(): Promise<OverrideMap> {
+  if (pending) return pending;
+  pending = (async () => {
+    const { data, error } = await supabase.from("image_overrides").select("image_id,url");
+    if (error) { console.error("Load overrides failed:", error); return readCache(); }
+    const map: OverrideMap = {};
+    for (const row of data ?? []) map[row.image_id] = row.url;
+    writeCache(map);
+    return map;
+  })();
+  try { return await pending; } finally { pending = null; }
+}
+
+async function saveOverride(id: string, url: string | null) {
+  const map = { ...readCache() };
+  if (url === null) {
+    delete map[id];
+    writeCache(map);
+    const { error } = await supabase.from("image_overrides").delete().eq("image_id", id);
+    if (error) throw error;
+  } else {
+    map[id] = url;
+    writeCache(map);
+    const { error } = await supabase
+      .from("image_overrides")
+      .upsert({ image_id: id, url, updated_at: new Date().toISOString() }, { onConflict: "image_id" });
+    if (error) throw error;
   }
-  window.dispatchEvent(new Event("leverify-image-overrides"));
 }
 
 export function useIsAdmin() {
@@ -29,12 +60,11 @@ export function useIsAdmin() {
   useEffect(() => {
     const check = () => setAdmin(typeof window !== "undefined" && sessionStorage.getItem(AUTH_KEY) === "ok");
     check();
-    const onStorage = () => check();
-    window.addEventListener("storage", onStorage);
+    window.addEventListener("storage", check);
     window.addEventListener("focus", check);
     window.addEventListener("leverify-admin-auth", check);
     return () => {
-      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("storage", check);
       window.removeEventListener("focus", check);
       window.removeEventListener("leverify-admin-auth", check);
     };
@@ -77,19 +107,34 @@ type Props = {
 
 export function EditableImage({ id, src, alt, className, width, height, loading }: Props) {
   const isAdmin = useIsAdmin();
-  const [override, setOverride] = useState<string | null>(null);
+  const [override, setOverride] = useState<string | null>(() => readCache()[id] ?? null);
   const [busy, setBusy] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const sync = () => setOverride(loadOverrides()[id] ?? null);
-    sync();
+    let alive = true;
+    fetchAllOverrides().then((map) => { if (alive) setOverride(map[id] ?? null); });
+    const sync = () => setOverride(readCache()[id] ?? null);
     window.addEventListener("leverify-image-overrides", sync);
-    window.addEventListener("storage", sync);
-    return () => {
-      window.removeEventListener("leverify-image-overrides", sync);
-      window.removeEventListener("storage", sync);
-    };
+    return () => { alive = false; window.removeEventListener("leverify-image-overrides", sync); };
+  }, [id]);
+
+  // Realtime sync across browsers/devices
+  useEffect(() => {
+    const channel = supabase
+      .channel(`image-overrides-${id}`)
+      .on("postgres_changes", { event: "*", schema: "public", table: "image_overrides", filter: `image_id=eq.${id}` },
+        (payload) => {
+          if (payload.eventType === "DELETE") {
+            const map = { ...readCache() }; delete map[id]; writeCache(map);
+            setOverride(null);
+          } else {
+            const url = (payload.new as { url?: string })?.url ?? null;
+            if (url) { const map = { ...readCache(), [id]: url }; writeCache(map); setOverride(url); }
+          }
+        })
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
   }, [id]);
 
   async function onPick(e: React.ChangeEvent<HTMLInputElement>) {
@@ -98,15 +143,26 @@ export function EditableImage({ id, src, alt, className, width, height, loading 
     setBusy(true);
     try {
       const url = await processImage(file);
-      saveOverride(id, url);
+      await saveOverride(id, url);
       setOverride(url);
     } catch (err) {
       console.error(err);
-      alert("Failed to process image.");
+      alert("Failed to save image. Try a smaller file.");
     } finally {
       setBusy(false);
       e.target.value = "";
     }
+  }
+
+  async function onReset() {
+    setBusy(true);
+    try {
+      await saveOverride(id, null);
+      setOverride(null);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to reset image.");
+    } finally { setBusy(false); }
   }
 
   const finalSrc = override ?? src;
@@ -121,15 +177,15 @@ export function EditableImage({ id, src, alt, className, width, height, loading 
             onClick={() => fileRef.current?.click()}
             disabled={busy}
             className="inline-flex items-center gap-1.5 rounded-full bg-foreground/90 text-background text-xs font-semibold px-3 py-1.5 shadow-elegant hover:bg-foreground disabled:opacity-60"
-            title="Replace image (auto-resized and compressed)"
+            title="Replace image — saved to cloud"
           >
             {busy ? <Loader2 className="size-3.5 animate-spin" /> : <ImagePlus className="size-3.5" />}
-            {busy ? "Optimizing…" : "Edit"}
+            {busy ? "Saving…" : "Edit"}
           </button>
           {override && !busy && (
             <button
               type="button"
-              onClick={() => { saveOverride(id, null); setOverride(null); }}
+              onClick={onReset}
               className="inline-flex items-center justify-center size-7 rounded-full bg-background/90 text-foreground shadow-elegant hover:bg-background"
               title="Reset to original"
             >
