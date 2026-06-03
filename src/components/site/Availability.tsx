@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { Activity, ArrowUpRight, Briefcase, CalendarDays, CheckCircle2, ChevronLeft, ChevronRight, Loader2, Mail, MapPin, Phone, User, Users } from "lucide-react";
+import { Activity, ArrowUpRight, Briefcase, CalendarDays, CircleCheck as CheckCircle2, ChevronLeft, ChevronRight, Loader as Loader2, Mail, MapPin, Phone, User, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/lib/supabase";
 
 type SpaceKey = "desk" | "office" | "meeting";
 
@@ -95,13 +96,31 @@ export function Availability() {
     return true;
   })();
 
-  function handleSubmit() {
+  async function handleSubmit() {
     setSubmitting(true);
-    setTimeout(() => {
+    try {
+      const space = spaces.find((s) => s.key === selected)!;
+      const spaceName = space.name.replace(" Desks", "").replace(" Offices", "").replace(" Rooms", "");
+      await supabase.from("bookings").insert({
+        member_name: form.name,
+        member_email: form.email,
+        member_phone: form.phone,
+        company: form.company || null,
+        notes: form.notes || null,
+        space: spaceName,
+        date: date.toISOString().slice(0, 10),
+        time: selected === "meeting" ? time : "All day",
+        duration: duration,
+        people: people,
+        status: "Pending",
+      });
       setSubmitting(false);
       setDone(true);
       setStep(4);
-    }, 1100);
+    } catch (err) {
+      console.error("Failed to submit booking:", err);
+      setSubmitting(false);
+    }
   }
 
   function reset() {

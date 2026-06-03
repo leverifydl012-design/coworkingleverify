@@ -48,7 +48,7 @@ const typeStyles: Record<Event["type"], { icon: typeof Users; color: string }> =
   Engagement: { icon: Sparkles, color: "bg-gold/15 text-gold" },
   Development: { icon: GraduationCap, color: "bg-primary/10 text-primary" },
   Networking: { icon: Users, color: "bg-emerald-500/10 text-emerald-600" },
-  Workshop: { icon: CalendarDays, color: "bg-purple-500/10 text-purple-600" },
+  Workshop: { icon: CalendarDays, color: "bg-blue-500/10 text-blue-600" },
 };
 
 export function Calendar() {

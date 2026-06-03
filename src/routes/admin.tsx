@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, useCallback } from "react";
-import { Users, CalendarDays, ClipboardList, Inbox, TrendingUp, Plus, Trash2, LogOut, ShieldCheck, ExternalLink, Loader as Loader2 } from "lucide-react";
+import { Users, CalendarDays, ClipboardList, Inbox, TrendingUp, LogOut, ShieldCheck, ExternalLink, Loader as Loader2, Plus, Trash2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
   supabase,

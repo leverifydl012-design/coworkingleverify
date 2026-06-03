@@ -1,20 +1,35 @@
 import { useEffect, useState } from "react";
-import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CircleCheck as CheckCircle2 } from "lucide-react";
 import { EditableImage } from "./EditableImage";
 import lounge from "@/assets/coworking-lounge.jpg";
+import { supabase } from "@/lib/supabase";
 
 export function Contact() {
   const [sent, setSent] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", interest: "Dedicated Desk", message: "" });
 
   useEffect(() => setMounted(true), []);
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
-    // Basic validation
     if (!form.name.trim() || !form.email.trim()) return;
-    setSent(true);
+
+    setIsSubmitting(true);
+    try {
+      await supabase.from("inquiries").insert({
+        name: form.name,
+        email: form.email,
+        phone: form.phone || null,
+        interest: form.interest,
+        message: form.message || null,
+      });
+      setSent(true);
+    } catch (err) {
+      console.error("Failed to submit inquiry:", err);
+    }
+    setIsSubmitting(false);
   }
 
   return (
@@ -162,9 +177,10 @@ export function Contact() {
 
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-foreground text-background px-6 py-3.5 text-sm font-semibold shadow-elegant hover:opacity-90 transition"
+                disabled={isSubmitting}
+                className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-foreground text-background px-6 py-3.5 text-sm font-semibold shadow-elegant hover:opacity-90 transition disabled:opacity-50"
               >
-                <Send className="size-4" /> Request a Tour
+                <Send className="size-4" /> {isSubmitting ? "Submitting..." : "Request a Tour"}
               </button>
               <p className="text-xs text-muted-foreground text-center">By submitting, you agree to be contacted by our team.</p>
             </form>
