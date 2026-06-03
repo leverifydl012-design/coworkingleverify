@@ -14,7 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      image_overrides: {
+        Row: {
+          image_id: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          image_id: string
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          image_id?: string
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
