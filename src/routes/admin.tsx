@@ -103,11 +103,12 @@ function saveStore(s: Store) {
   localStorage.setItem(KEY, JSON.stringify(s));
 }
 
-// ----- Auth (lightweight gate) -----
+// ----- Auth (server-validated) -----
 
 const ADMIN_EMAIL = "Asidsarfraz@gmail.com";
-const ADMIN_PASSWORD = "7654321";
 const AUTH_KEY = "leverify-circle-admin-auth";
+const PW_KEY = "leverify-circle-admin-pw";
+
 
 function AdminPanel() {
   const [authed, setAuthed] = useState(false);
@@ -152,7 +153,7 @@ function AdminPanel() {
               <ExternalLink className="size-4" /> View live site
             </Link>
             <button
-              onClick={() => { sessionStorage.removeItem(AUTH_KEY); window.dispatchEvent(new Event("leverify-admin-auth")); setAuthed(false); }}
+              onClick={() => { sessionStorage.removeItem(AUTH_KEY); sessionStorage.removeItem(PW_KEY); window.dispatchEvent(new Event("leverify-admin-auth")); setAuthed(false); }}
               className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground px-3 py-2"
             >
               <LogOut className="size-4" /> Sign out
@@ -346,17 +347,29 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [err, setErr] = useState("");
+  const [busy, setBusy] = useState(false);
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (email.trim().toLowerCase() === ADMIN_EMAIL.toLowerCase() && pwd === ADMIN_PASSWORD) {
+    if (email.trim().toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+      setErr("Incorrect email or password.");
+      return;
+    }
+    setBusy(true);
+    try {
+      const { verifyAdminFn } = await import("@/lib/image-overrides.functions");
+      await verifyAdminFn({ data: { password: pwd } });
       sessionStorage.setItem(AUTH_KEY, "ok");
+      sessionStorage.setItem(PW_KEY, pwd);
       window.dispatchEvent(new Event("leverify-admin-auth"));
       onSuccess();
-    } else {
+    } catch {
       setErr("Incorrect email or password.");
+    } finally {
+      setBusy(false);
     }
   }
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
@@ -391,9 +404,10 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
         </label>
         {err && <p className="mt-2 text-xs text-destructive">{err}</p>}
 
-        <button type="submit" className="mt-6 w-full inline-flex justify-center rounded-full bg-foreground text-background px-5 py-3 text-sm font-semibold hover:opacity-90 transition">
-          Sign in
+        <button type="submit" disabled={busy} className="mt-6 w-full inline-flex justify-center rounded-full bg-foreground text-background px-5 py-3 text-sm font-semibold hover:opacity-90 transition disabled:opacity-60">
+          {busy ? "Signing in…" : "Sign in"}
         </button>
+
 
       </form>
     </div>

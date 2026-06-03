@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { ImagePlus, RotateCcw, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { saveImageOverrideFn, deleteImageOverrideFn } from "@/lib/image-overrides.functions";
 
 const AUTH_KEY = "leverify-circle-admin-auth";
+const PW_KEY = "leverify-circle-admin-pw";
 const CACHE_KEY = "leverify-image-overrides-cache";
 const MAX_WIDTH = 1600;
 const QUALITY = 0.8;
+
 
 type OverrideMap = Record<string, string>;
 
@@ -39,21 +42,20 @@ async function fetchAllOverrides(): Promise<OverrideMap> {
 }
 
 async function saveOverride(id: string, url: string | null) {
+  const password = typeof window !== "undefined" ? sessionStorage.getItem(PW_KEY) || "" : "";
+  if (!password) throw new Error("Admin session expired. Sign in again.");
   const map = { ...readCache() };
   if (url === null) {
     delete map[id];
     writeCache(map);
-    const { error } = await supabase.from("image_overrides").delete().eq("image_id", id);
-    if (error) throw error;
+    await deleteImageOverrideFn({ data: { password, imageId: id } });
   } else {
     map[id] = url;
     writeCache(map);
-    const { error } = await supabase
-      .from("image_overrides")
-      .upsert({ image_id: id, url, updated_at: new Date().toISOString() }, { onConflict: "image_id" });
-    if (error) throw error;
+    await saveImageOverrideFn({ data: { password, imageId: id, url } });
   }
 }
+
 
 export function useIsAdmin() {
   const [admin, setAdmin] = useState(false);
