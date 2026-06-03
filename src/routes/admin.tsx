@@ -347,17 +347,29 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [err, setErr] = useState("");
+  const [busy, setBusy] = useState(false);
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (email.trim().toLowerCase() === ADMIN_EMAIL.toLowerCase() && pwd === ADMIN_PASSWORD) {
+    if (email.trim().toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+      setErr("Incorrect email or password.");
+      return;
+    }
+    setBusy(true);
+    try {
+      const { verifyAdminFn } = await import("@/lib/image-overrides.functions");
+      await verifyAdminFn({ data: { password: pwd } });
       sessionStorage.setItem(AUTH_KEY, "ok");
+      sessionStorage.setItem(PW_KEY, pwd);
       window.dispatchEvent(new Event("leverify-admin-auth"));
       onSuccess();
-    } else {
+    } catch {
       setErr("Incorrect email or password.");
+    } finally {
+      setBusy(false);
     }
   }
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
