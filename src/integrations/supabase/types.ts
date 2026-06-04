@@ -14,6 +14,78 @@ export type Database = {
   }
   public: {
     Tables: {
+      bookings: {
+        Row: {
+          company: string | null
+          created_at: string
+          date: string
+          duration: string
+          id: string
+          member_email: string
+          member_name: string
+          member_phone: string
+          notes: string | null
+          people: number
+          space: string
+          status: string
+          time: string
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          date: string
+          duration?: string
+          id?: string
+          member_email: string
+          member_name: string
+          member_phone?: string
+          notes?: string | null
+          people?: number
+          space?: string
+          status?: string
+          time: string
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          date?: string
+          duration?: string
+          id?: string
+          member_email?: string
+          member_name?: string
+          member_phone?: string
+          notes?: string | null
+          people?: number
+          space?: string
+          status?: string
+          time?: string
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          created_at: string
+          date: string
+          id: string
+          title: string
+          type: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          id?: string
+          title: string
+          type?: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          id?: string
+          title?: string
+          type?: string
+        }
+        Relationships: []
+      }
       image_overrides: {
         Row: {
           image_id: string
@@ -29,6 +101,66 @@ export type Database = {
           image_id?: string
           updated_at?: string
           url?: string
+        }
+        Relationships: []
+      }
+      inquiries: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          interest: string
+          message: string | null
+          name: string
+          phone: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          interest: string
+          message?: string | null
+          name: string
+          phone?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          interest?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+        }
+        Relationships: []
+      }
+      members: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          joined: string
+          name: string
+          plan: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          joined: string
+          name: string
+          plan?: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          joined?: string
+          name?: string
+          plan?: string
+          status?: string
         }
         Relationships: []
       }
