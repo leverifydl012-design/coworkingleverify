@@ -20,7 +20,6 @@ import {
   ArrowDownRight,
   Bell,
   Filter,
-  MoreVertical,
   CheckCircle2,
   Clock,
   XCircle,
