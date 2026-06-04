@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 
 const faqs = [
-  { q: "Where is Leverify located in Islamabad?", a: "We're in the heart of F-7 Markaz with quick access from Margalla Road and Jinnah Avenue. Covered parking and a dedicated entry for members." },
+  { q: "Where is Leverify located?", a: "We're at Office#04 Floor, 145 St 3, Civic Center Bahria Town, Rawalpindi. Covered parking and a dedicated entry for members." },
   { q: "Can I tour the space before signing up?", a: "Yes — book a free 20-minute tour through the contact form. We'll walk you through every workspace type and let you trial a day pass." },
   { q: "What internet speeds do you offer?", a: "Symmetric 1 Gbps fiber from multiple ISPs with automatic failover, plus enterprise Wi-Fi 6 access points across the building." },
   { q: "Do you have 24/7 access?", a: "Members on Dedicated, Team, and Private Office plans get biometric 24/7 access. Flex members access Monday–Saturday during operating hours." },
-  { q: "Can I register my business at this address?", a: "Yes. Our Virtual Office plan includes a verifiable Islamabad business address, mail handling, and call answering." },
+  { q: "Can I register my business at this address?", a: "Yes. Our Virtual Office plan includes a verifiable Rawalpindi business address, mail handling, and call answering." },
   { q: "Do you offer day passes?", a: "Absolutely. Drop in for PKR 1,500/day — includes Wi-Fi, coffee, and access to the coworking lounge." },
 ];
 

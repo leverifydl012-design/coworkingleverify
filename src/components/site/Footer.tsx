@@ -14,7 +14,7 @@ export function Footer() {
               <span className="font-display text-lg font-bold">Leverify Coworking</span>
             </a>
             <p className="mt-5 text-primary-foreground/70 max-w-sm leading-relaxed">
-              Premium coworking in F-7 Markaz, Islamabad. Designed for founders, agencies, and remote teams
+              Premium coworking in Civic Center Bahria Town, Rawalpindi. Designed for founders, agencies, and remote teams
               that take work — and the people doing it — seriously.
             </p>
             <a
@@ -39,9 +39,9 @@ export function Footer() {
               ["FAQ", "#faq"],
             ]} />
             <FooterCol title="Contact" links={[
-              ["F-7 Markaz, Islamabad", "#contact"],
-              ["+92 51 123 4567", "tel:+92511234567"],
-              ["hello@nexuscoworking.pk", "mailto:hello@nexuscoworking.pk"],
+              ["Office#04 Floor, 145 St 3, Civic Center Bahria Town, Rawalpindi", "#contact"],
+              ["051-8488180", "tel:051-8488180"],
+              ["admin@leverify.com", "mailto:admin@leverify.com"],
             ]} />
           </div>
         </div>

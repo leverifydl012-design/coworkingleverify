@@ -141,7 +141,7 @@ export function Availability() {
               Real-time space, booked in minutes.
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Availability updates in real time across our F-7 Markaz floor. Pick a space, choose a date, and we'll confirm within an hour.
+              Availability updates in real time across our Civic Center Bahria Town floor. Pick a space, choose a date, and we'll confirm within an hour.
             </p>
           </div>
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -440,7 +440,7 @@ export function Availability() {
               </dl>
 
               <div className="mt-auto pt-8 border-t border-white/10 text-xs text-white/60 space-y-2">
-                <p className="flex items-center gap-2"><MapPin className="size-3.5" /> F-7 Markaz, Islamabad</p>
+                <p className="flex items-center gap-2"><MapPin className="size-3.5" /> Civic Center Bahria Town, Rawalpindi</p>
                 <p>No payment required to reserve. Our team confirms within 1 hour during business hours.</p>
               </div>
             </aside>
