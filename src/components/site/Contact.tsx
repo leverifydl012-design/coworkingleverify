@@ -87,8 +87,8 @@ export function Contact() {
 
           <div className="mt-10 rounded-3xl overflow-hidden border border-border shadow-elegant aspect-[16/10]">
             <iframe
-              title="Leverify Coworking — Islamabad location"
-              src="https://www.google.com/maps?q=F-7+Markaz,+Islamabad,+Pakistan&output=embed"
+              title="Leverify Coworking — Civic Center Bahria Town, Rawalpindi"
+              src="https://www.google.com/maps?q=Civic+Center+Bahria+Town+Phase+4,+Rawalpindi&output=embed"
               width="100%"
               height="100%"
               loading="lazy"
