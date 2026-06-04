@@ -70,6 +70,13 @@ export function Contact() {
               </div>
             </li>
             <li className="flex items-start gap-4">
+              <span className="size-11 rounded-xl bg-gold/15 text-gold flex items-center justify-center"><Phone className="size-5" /></span>
+              <div>
+                <div className="font-semibold text-foreground">Mobile</div>
+                <div className="text-sm text-muted-foreground">03315362692</div>
+              </div>
+            </li>
+            <li className="flex items-start gap-4">
               <span className="size-11 rounded-xl bg-gold/15 text-gold flex items-center justify-center"><Mail className="size-5" /></span>
               <div>
                 <div className="font-semibold text-foreground">Email</div>
