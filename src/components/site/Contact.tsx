@@ -70,6 +70,13 @@ export function Contact() {
               </div>
             </li>
             <li className="flex items-start gap-4">
+              <span className="size-11 rounded-xl bg-gold/15 text-gold flex items-center justify-center"><Phone className="size-5" /></span>
+              <div>
+                <div className="font-semibold text-foreground">Mobile</div>
+                <div className="text-sm text-muted-foreground">03315362692</div>
+              </div>
+            </li>
+            <li className="flex items-start gap-4">
               <span className="size-11 rounded-xl bg-gold/15 text-gold flex items-center justify-center"><Mail className="size-5" /></span>
               <div>
                 <div className="font-semibold text-foreground">Email</div>
@@ -80,8 +87,8 @@ export function Contact() {
 
           <div className="mt-10 rounded-3xl overflow-hidden border border-border shadow-elegant aspect-[16/10]">
             <iframe
-              title="Leverify Coworking — Islamabad location"
-              src="https://www.google.com/maps?q=F-7+Markaz,+Islamabad,+Pakistan&output=embed"
+              title="Leverify Coworking — Civic Center Bahria Town, Rawalpindi"
+              src="https://www.google.com/maps?q=Civic+Center+Bahria+Town+Phase+4,+Rawalpindi&output=embed"
               width="100%"
               height="100%"
               loading="lazy"
