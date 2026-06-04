@@ -59,21 +59,21 @@ export function Contact() {
               <span className="size-11 rounded-xl bg-gold/15 text-gold flex items-center justify-center"><MapPin className="size-5" /></span>
               <div>
                 <div className="font-semibold text-foreground">Visit</div>
-                <div className="text-sm text-muted-foreground">Leverify Coworking, F-7 Markaz, Islamabad</div>
+                <div className="text-sm text-muted-foreground">Office#04 Floor, 145 St 3, Civic Center Bahria Town, Rawalpindi</div>
               </div>
             </li>
             <li className="flex items-start gap-4">
               <span className="size-11 rounded-xl bg-gold/15 text-gold flex items-center justify-center"><Phone className="size-5" /></span>
               <div>
                 <div className="font-semibold text-foreground">Call</div>
-                <div className="text-sm text-muted-foreground">+92 51 123 4567</div>
+                <div className="text-sm text-muted-foreground">051-8488180</div>
               </div>
             </li>
             <li className="flex items-start gap-4">
               <span className="size-11 rounded-xl bg-gold/15 text-gold flex items-center justify-center"><Mail className="size-5" /></span>
               <div>
                 <div className="font-semibold text-foreground">Email</div>
-                <div className="text-sm text-muted-foreground">hello@nexuscoworking.pk</div>
+                <div className="text-sm text-muted-foreground">admin@leverify.com</div>
               </div>
             </li>
           </ul>
