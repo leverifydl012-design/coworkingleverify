@@ -16,31 +16,20 @@ const companies = [
 
 export default function LogoMarquee() {
   return (
-    <div
-      className="relative overflow-hidden w-full"
-      style={{
-        maskImage:
-          "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
-        WebkitMaskImage:
-          "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
-      }}
-    >
+    <div className="relative overflow-hidden w-full">
       <div className="flex w-max animate-marquee">
         {[...companies, ...companies].map((c, i) => (
           <div
             key={i}
-            className="flex items-center gap-3 mx-8 shrink-0"
+            className="flex items-center mx-10 shrink-0"
             aria-hidden={i >= companies.length ? "true" : undefined}
           >
             <img
               src={c.logo}
               alt={c.name}
-              className="h-10 w-auto object-contain"
+              className="h-16 w-auto object-contain"
               loading="lazy"
             />
-            <span className="font-display font-semibold text-lg text-foreground/70 whitespace-nowrap">
-              {c.name}
-            </span>
           </div>
         ))}
       </div>
