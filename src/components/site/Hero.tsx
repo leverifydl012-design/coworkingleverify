@@ -1,6 +1,7 @@
 import { ArrowRight, PlayCircle, MapPin, Star } from "lucide-react";
 import hero from "@/assets/hero-workspace.jpg";
 import { EditableImage } from "./EditableImage";
+import LogoMarquee from "./LogoMarquee";
 
 export function Hero() {
   return (
