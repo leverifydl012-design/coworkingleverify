@@ -42,6 +42,12 @@
   --animate-scale-in: scale-in 0.5s ease-out both;
   --animate-float: float 6s ease-in-out infinite;
   --animate-shimmer: shimmer 3s linear infinite;
+  --animate-marquee: marquee 35s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
 
   @keyframes fade-in {
     from { opacity: 0; }

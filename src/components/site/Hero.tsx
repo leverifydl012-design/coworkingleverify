@@ -111,11 +111,7 @@ export function Hero() {
         <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">
           Powering teams from
         </p>
-        <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-4 opacity-70">
-          {["Daraz", "Careem", "Bykea", "Foodpanda", "Systems", "Tintash"].map((b) => (
-            <span key={b} className="font-display font-bold text-xl text-foreground/60">{b}</span>
-          ))}
-        </div>
+        <LogoMarquee />
       </div>
     </section>
   );
