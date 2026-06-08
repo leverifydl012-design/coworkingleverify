@@ -27,7 +27,7 @@ export default function LogoMarquee() {
             <img
               src={c.logo}
               alt={c.name}
-              className="h-16 w-auto object-contain"
+              className="h-24 w-auto object-contain"
               loading="lazy"
             />
           </div>
