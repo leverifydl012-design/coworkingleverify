@@ -12,4 +12,11 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
+  vite: {
+    server: {
+      // Allow the v0 / sandbox preview proxy to reach the dev server.
+      // Without this, Vite rejects unknown Host headers with "Blocked request".
+      allowedHosts: true,
+    },
+  },
 });
