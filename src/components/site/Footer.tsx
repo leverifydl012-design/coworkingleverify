@@ -4,7 +4,7 @@ import logo from "@/assets/leverify-logo.png";
 export function Footer() {
   return (
     <footer className="bg-hero-gradient text-primary-foreground">
-      <div className="container-px mx-auto max-w-7xl py-20">
+      <div className="container-px mx-auto max-w-[1600px] py-20">
         <div className="grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-5">
             <a href="#top" className="flex items-center gap-2">
