@@ -17,7 +17,7 @@ const items = [
 export function Amenities() {
   return (
     <section id="amenities" className="py-24 lg:py-32 bg-muted/40">
-      <div className="container-px mx-auto max-w-[1760px]">
+      <div className="container-px mx-auto max-w-7xl">
         <div className="text-center max-w-2xl mx-auto">
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">Amenities</span>
           <h2 className="mt-4 text-4xl md:text-5xl font-bold text-foreground leading-tight">

@@ -32,7 +32,7 @@ export function Testimonials() {
         <div className="absolute top-20 -left-20 size-96 rounded-full bg-gold/30 blur-3xl" />
         <div className="absolute bottom-10 right-0 size-96 rounded-full bg-primary/40 blur-3xl" />
       </div>
-      <div className="container-px mx-auto max-w-[1760px] relative">
+      <div className="container-px mx-auto max-w-7xl relative">
         <div className="text-center max-w-2xl mx-auto">
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">Testimonials</span>
           <h2 className="mt-4 text-4xl md:text-5xl font-bold leading-tight">

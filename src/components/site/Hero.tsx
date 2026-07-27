@@ -12,7 +12,7 @@ export function Hero() {
         <div className="absolute top-40 -right-40 size-[520px] rounded-full bg-primary/15 blur-3xl" />
       </div>
 
-      <div className="container-px mx-auto max-w-[1760px] grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="container-px mx-auto max-w-7xl grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-xs font-medium text-foreground/80">
             <MapPin className="size-3.5 text-gold" />
@@ -108,7 +108,7 @@ export function Hero() {
       </div>
 
       {/* Logo strip */}
-      <div className="container-px mx-auto max-w-[1760px] mt-20">
+      <div className="container-px mx-auto max-w-7xl mt-20">
         <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">
           Powering teams from
         </p>
