@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/leverify-logo.png";
+import { DensityToggle } from "./DensityToggle";
 
 const links = [
   { href: "#workspaces", label: "Workspaces" },
