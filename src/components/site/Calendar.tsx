@@ -54,7 +54,7 @@ const typeStyles: Record<Event["type"], { icon: typeof Users; color: string }> =
 export function Calendar() {
   return (
     <section id="calendar" className="py-24 lg:py-32 bg-muted/40">
-      <div className="container-px mx-auto max-w-[1600px]">
+      <div className="container-px mx-auto max-w-[1760px]">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
           <div className="max-w-2xl">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">Community Calendar</span>
