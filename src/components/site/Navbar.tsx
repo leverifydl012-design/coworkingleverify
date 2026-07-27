@@ -62,6 +62,7 @@ export function Navbar() {
           </nav>
 
           <div className="hidden lg:flex items-center gap-3">
+            <DensityToggle />
             <a
               href="#contact"
               className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
