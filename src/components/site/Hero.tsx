@@ -79,7 +79,7 @@ export function Hero() {
               alt="Premium coworking workspace at Leverify Islamabad with floor-to-ceiling windows"
               width={1920}
               height={1080}
-              className="w-full h-[560px] lg:h-[640px] xl:h-[720px] object-cover"
+              className="w-full h-[520px] object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent" />
           </div>
