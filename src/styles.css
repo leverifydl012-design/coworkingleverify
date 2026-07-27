@@ -173,5 +173,14 @@
   }
   .shadow-elegant { box-shadow: var(--shadow-elegant); }
   .shadow-gold { box-shadow: var(--shadow-gold); }
-  .container-px { padding-left: clamp(1rem, 4vw, 3rem); padding-right: clamp(1rem, 4vw, 3rem); }
+  .container-px { padding-left: clamp(1rem, 2vw, 2rem); padding-right: clamp(1rem, 2vw, 2rem); }
+}
+
+@layer base {
+  html { font-size: 17px; }
+  @media (min-width: 1280px) { html { font-size: 18px; } }
+  @media (min-width: 1600px) { html { font-size: 19px; } }
+  @media (min-width: 1920px) { html { font-size: 20px; } }
+  body { line-height: 1.7; }
+  h1, h2, h3, h4 { line-height: 1.15; }
 }
