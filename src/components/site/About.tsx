@@ -17,7 +17,7 @@ const pillars = [
 export function About() {
   return (
     <section id="about" className="py-24 lg:py-32">
-      <div className="container-px mx-auto max-w-7xl">
+      <div className="container-px mx-auto max-w-[1600px]">
         <div className="grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-5">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">About Leverify Circle</span>

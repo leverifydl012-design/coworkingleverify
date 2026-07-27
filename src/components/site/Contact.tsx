@@ -44,7 +44,7 @@ export function Contact() {
         />
         <div className="absolute inset-0 bg-muted/40" />
       </div>
-      <div className="container-px mx-auto max-w-7xl grid lg:grid-cols-2 gap-12 relative">
+      <div className="container-px mx-auto max-w-[1600px] grid lg:grid-cols-2 gap-12 relative">
         <div>
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">Contact</span>
           <h2 className="mt-4 text-4xl md:text-5xl font-bold text-foreground leading-tight">
