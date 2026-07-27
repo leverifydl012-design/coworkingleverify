@@ -19,7 +19,7 @@ export function Hero() {
             Leverify Circle · Civic Center Bahria Town, Rawalpindi
           </div>
 
-          <h1 className="mt-6 text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[1.02] text-foreground">
+          <h1 className="mt-6 text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-foreground">
             Work.
             <br />
             <span className="gradient-text">Connect.</span> Learn.
