@@ -21,13 +21,13 @@ export default function LogoMarquee() {
         {[...companies, ...companies].map((c, i) => (
           <div
             key={i}
-            className="flex items-center mx-10 sm:mx-14 lg:mx-20 shrink-0"
+            className="flex items-center mx-12 shrink-0"
             aria-hidden={i >= companies.length ? "true" : undefined}
           >
             <img
               src={c.logo}
               alt={c.name}
-              className="h-32 sm:h-44 lg:h-56 w-auto object-contain"
+              className="h-24 w-auto object-contain"
               loading="lazy"
             />
           </div>

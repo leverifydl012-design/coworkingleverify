@@ -131,7 +131,7 @@ export function Availability() {
 
   return (
     <section id="availability" className="py-24 lg:py-32">
-      <div className="container-px mx-auto max-w-[1760px]">
+      <div className="container-px mx-auto max-w-7xl">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div className="max-w-2xl">
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">

@@ -12,14 +12,14 @@ export function Hero() {
         <div className="absolute top-40 -right-40 size-[520px] rounded-full bg-primary/15 blur-3xl" />
       </div>
 
-      <div className="container-px mx-auto max-w-[1760px] grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="container-px mx-auto max-w-7xl grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-xs font-medium text-foreground/80">
             <MapPin className="size-3.5 text-gold" />
             Leverify Circle · Civic Center Bahria Town, Rawalpindi
           </div>
 
-          <h1 className="mt-6 text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[1.02] text-foreground">
+          <h1 className="mt-6 text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-foreground">
             Work.
             <br />
             <span className="gradient-text">Connect.</span> Learn.
@@ -79,7 +79,7 @@ export function Hero() {
               alt="Premium coworking workspace at Leverify Islamabad with floor-to-ceiling windows"
               width={1920}
               height={1080}
-              className="w-full h-[560px] lg:h-[640px] xl:h-[720px] object-cover"
+              className="w-full h-[520px] object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent" />
           </div>
@@ -108,7 +108,7 @@ export function Hero() {
       </div>
 
       {/* Logo strip */}
-      <div className="container-px mx-auto max-w-[1760px] mt-20">
+      <div className="container-px mx-auto max-w-7xl mt-20">
         <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">
           Powering teams from
         </p>
