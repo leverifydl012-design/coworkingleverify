@@ -114,6 +114,10 @@ export function Navbar() {
               >
                 Get Started
               </a>
+              <div className="mt-3 flex items-center justify-between px-1">
+                <span className="text-xs text-muted-foreground">Layout density</span>
+                <DensityToggle />
+              </div>
             </div>
           </div>
         )}
