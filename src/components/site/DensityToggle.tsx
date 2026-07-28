@@ -12,12 +12,12 @@ function applyDensity(d: Density) {
 }
 
 export function useDensity(): [Density, (d: Density) => void] {
-  const [density, setDensityState] = useState<Density>("cozy");
+  const [density, setDensityState] = useState<Density>("spacious");
 
   useEffect(() => {
-    const stored = (localStorage.getItem(STORAGE_KEY) as Density | null) ?? "cozy";
-    setDensityState(stored);
-    applyDensity(stored);
+    setDensityState("spacious");
+    applyDensity("spacious");
+    try { localStorage.setItem(STORAGE_KEY, "spacious"); } catch {}
   }, []);
 
   const setDensity = (d: Density) => {
