@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/leverify-logo.png";
-import { DensityToggle } from "./DensityToggle";
+
 
 const links = [
   { href: "#workspaces", label: "Workspaces" },
@@ -62,7 +62,6 @@ export function Navbar() {
           </nav>
 
           <div className="hidden lg:flex items-center gap-3">
-            <DensityToggle />
             <a
               href="#contact"
               className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
@@ -114,10 +113,6 @@ export function Navbar() {
               >
                 Get Started
               </a>
-              <div className="mt-3 flex items-center justify-between px-1">
-                <span className="text-xs text-muted-foreground">Layout density</span>
-                <DensityToggle />
-              </div>
             </div>
           </div>
         )}
